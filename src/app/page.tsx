@@ -12,7 +12,7 @@ export default function Home() {
               <div className="bg-slate-900 text-white p-1.5 rounded">
                 <Building2 size={20} />
               </div>
-              <span className="text-xl font-bold tracking-tight text-slate-900">RHQ.com</span>
+              <span className="text-xl font-bold tracking-tight text-slate-900">RHQ.ae</span>
             </div>
             <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
               <a href="#" className="hover:text-slate-900">Jan 1 2026 Mandate</a>
