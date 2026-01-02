@@ -17,10 +17,37 @@ export default function Home() {
     setStep(step + 1);
   };
 
-  const handleFinalSubmit = (e: React.FormEvent) => {
+const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Lead Captured!\nEmail: ${formData.email}\nJurisdiction: ${formData.jurisdiction}`);
-    handleClose();
+    
+    // 1. Visual Feedback (Loading)
+    const btn = e.currentTarget.querySelector('button');
+    if (btn) btn.textContent = "Generating Assessment...";
+
+    // 2. Send Data to Formspree
+    try {
+      const response = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          jurisdiction: formData.jurisdiction,
+          revenue: formData.revenue,
+          source: "RHQ.ae Wizard"
+        })
+      });
+
+      if (response.ok) {
+        // 3. Success State
+        alert("Success! Your 2026 Assessment has been sent to your email.");
+        handleClose();
+        setStep(1); // Reset for next user
+      } else {
+        alert("Error sending data. Please try again.");
+      }
+    } catch (error) {
+      alert("Network error. Please check your connection.");
+    }
   };
 
   return (
